@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Amir Suhail Salim — Control Systems & Autonomous Robotics Engineer. Master's student at TU Munich specializing in MPC, optimal control, and autonomous systems.">
+  <title>Amir Suhail Salim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #060912;
+      --bg2:         #0b1120;
+      --card:        #0e1526;
+      --card-h:      #131d33;
+      --cyan:        #22d3ee;
+      --cyan-g:      rgba(34,211,238,.12);
+      --cyan-b:      rgba(34,211,238,.25);
+      --purple:      #a78bfa;
+      --purple-g:    rgba(167,139,250,.12);
+      --text:        #e2e8f0;
+      --text2:       #94a3b8;
+      --muted:       #64748b;
+      --border:      #1a2740;
+      --border2:     #243450;
+      --r:           12px;
+      --r-sm:        8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* ─── Utilities ─────────────────────────────────── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .sec  { padding: 96px 0; }
+
+    .sec-hdr { margin-bottom: 56px; }
+    .sec-hdr.center { text-align: center; }
+
+    .sec-title {
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 8px;
+      position: relative;
+      display: inline-block;
+    }
+    .sec-title::after {
+      content: '';
+      display: block;
+      width: 44px; height: 3px;
+      background: var(--cyan);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+    .sec-hdr.center .sec-title::after { margin-left: auto; margin-right: auto; }
+
+    .sec-sub {
+      color: var(--text2);
+      font-size: .95rem;
+      margin-top: 14px;
+    }
+
+    /* ─── Nav ───────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 0;
+      transition: background .3s, border-color .3s, backdrop-filter .3s;
+    }
+    #nav.scrolled {
+      background: rgba(6,9,18,.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 700;
+      color: var(--cyan); text-decoration: none;
+      letter-spacing: -.01em;
+    }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--text2); text-decoration: none;
+      font-size: .875rem; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+    /* ─── Mobile Menu ───────────────────────────────── */
+    #mob-menu {
+      display: none; position: fixed; inset: 0;
+      background: var(--bg); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+    }
+    #mob-menu.open { display: flex; }
+    #mob-menu a { color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: 700; transition: color .2s; }
+    #mob-menu a:hover { color: var(--cyan); }
+    .mob-close { position: absolute; top: 24px; right: 24px; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+
+    /* ─── Hero ──────────────────────────────────────── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% -10%, rgba(34,211,238,.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 70% at 85% 50%, rgba(167,139,250,.05) 0%, transparent 60%);
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity: .35;
+      mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 80%);
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--cyan-g); border: 1px solid var(--cyan-b);
+      color: var(--cyan); font-size: .75rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 22px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--cyan); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:.4; transform:scale(.8); }
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800; line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      color: var(--text2); margin-bottom: 24px;
+      min-height: 2em;
+    }
+    .hero-role .typed { color: var(--cyan); font-weight: 600; }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--cyan); margin-left: 2px; vertical-align: middle;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-desc {
+      max-width: 580px; color: var(--text2);
+      font-size: 1rem; line-height: 1.85; margin-bottom: 36px;
+    }
+
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: var(--r-sm);
+      text-decoration: none; font-weight: 600; font-size: .875rem;
+      transition: all .25s; cursor: pointer; border: none; white-space: nowrap;
+    }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .btn-primary { background: var(--cyan); color: var(--bg); }
+    .btn-primary:hover { background: #38bdf8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,211,238,.3); }
+
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+    .hero-socials { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 44px; }
+    .soc-link {
+      display: flex; align-items: center; gap: 7px;
+      color: var(--muted); text-decoration: none;
+      font-size: .82rem; font-weight: 500; transition: color .2s;
+    }
+    .soc-link svg { width: 17px; height: 17px; }
+    .soc-link:hover { color: var(--cyan); }
+
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: var(--muted); font-size: .72rem;
+      animation: bob 2.5s ease-in-out infinite;
+    }
+    .scroll-hint svg { width: 18px; height: 18px; }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+    /* ─── About ─────────────────────────────────────── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 320px 1fr;
+      gap: 64px; align-items: start;
+    }
+
+    .avatar-wrap { position: relative; }
+    .avatar-glow {
+      position: absolute; inset: -3px; border-radius: calc(var(--r) + 4px);
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      z-index: 0;
+    }
+    .avatar-box {
+      position: relative; z-index: 1;
+      width: 100%; aspect-ratio: 1;
+      border-radius: var(--r);
+      background: var(--card);
+      border: 2px solid var(--border);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-box .placeholder-icon { width: 55%; height: 55%; color: var(--border2); }
+
+    .about-text p { color: var(--text2); margin-bottom: 16px; font-size: .97rem; line-height: 1.85; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 32px; }
+    .stat {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 18px 12px; text-align: center;
+      transition: border-color .2s;
+    }
+    .stat:hover { border-color: var(--cyan); }
+    .stat-val { font-size: 1.6rem; font-weight: 800; color: var(--cyan); font-family: 'JetBrains Mono', monospace; }
+    .stat-lbl { font-size: .75rem; color: var(--muted); margin-top: 4px; }
+
+    /* ─── Skills ────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; }
+
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 26px;
+      transition: border-color .25s, transform .25s;
+    }
+    .skill-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+
+    .skill-hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .skill-icon {
+      width: 38px; height: 38px; border-radius: var(--r-sm);
+      background: var(--cyan-g); border: 1px solid var(--cyan-b);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .skill-name { font-size: .9rem; font-weight: 700; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; color: var(--text2);
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 6px;
+    }
+
+    /* ─── Experience ────────────────────────────────── */
+    #experience { background: var(--bg2); }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 10px; bottom: 20px;
+      width: 2px; background: linear-gradient(to bottom, var(--cyan) 0%, var(--purple) 60%, transparent 100%);
+    }
+
+    .tl-item { position: relative; margin-bottom: 40px; }
+    .tl-item:last-child { margin-bottom: 0; }
+
+    .tl-dot {
+      position: absolute; left: -35px; top: 10px;
+      width: 13px; height: 13px; border-radius: 50%;
+      background: var(--cyan); border: 2px solid var(--bg2);
+      box-shadow: 0 0 10px rgba(34,211,238,.5);
+    }
+
+    .tl-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 26px;
+      transition: border-color .2s;
+    }
+    .tl-card:hover { border-color: var(--border2); }
+
+    .tl-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .tl-title { font-size: 1rem; font-weight: 700; }
+    .tl-org { color: var(--cyan); font-size: .875rem; font-weight: 500; margin-top: 4px; }
+    .tl-date {
+      font-size: .75rem; color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tl-card ul { list-style: none; }
+    .tl-card ul li {
+      position: relative; padding-left: 18px;
+      color: var(--text2); font-size: .9rem; line-height: 1.7; margin-bottom: 8px;
+    }
+    .tl-card ul li::before {
+      content: '▸'; position: absolute; left: 0; top: 1px;
+      color: var(--cyan); font-size: .7rem;
+    }
+
+    .tl-techs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tl-tech {
+      font-size: .72rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan); background: var(--cyan-g);
+      border: 1px solid var(--cyan-b); padding: 3px 10px; border-radius: 100px;
+    }
+    .tl-tech.v { color: var(--purple); background: var(--purple-g); border-color: rgba(167,139,250,.25); }
+
+    /* ─── Projects ──────────────────────────────────── */
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 22px; }
+
+    .proj-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 26px;
+      display: flex; flex-direction: column;
+      transition: all .25s;
+    }
+    .proj-card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+
+    .proj-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+    .proj-emoji { font-size: 1.6rem; }
+    .proj-gh { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .proj-gh:hover { color: var(--cyan); }
+    .proj-gh svg { width: 18px; height: 18px; }
+
+    .proj-title { font-size: .98rem; font-weight: 700; margin-bottom: 6px; }
+    .proj-period { font-size: .72rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+    .proj-desc { color: var(--text2); font-size: .875rem; line-height: 1.75; flex: 1; margin-bottom: 16px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .proj-tag {
+      font-size: .7rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--muted); background: var(--bg2);
+      border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px;
+    }
+
+    /* ─── Education ─────────────────────────────────── */
+    #education { background: var(--bg2); }
+
+    .edu-list { display: grid; gap: 20px; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 28px;
+      display: grid; grid-template-columns: 48px 1fr; gap: 22px; align-items: start;
+      transition: border-color .2s;
+    }
+    .edu-card:hover { border-color: var(--cyan); }
+    .edu-icon {
+      width: 48px; height: 48px; border-radius: var(--r-sm);
+      background: var(--cyan-g); border: 1px solid var(--cyan-b);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .edu-deg { font-size: .98rem; font-weight: 700; margin-bottom: 4px; }
+    .edu-school { color: var(--cyan); font-size: .875rem; font-weight: 500; margin-bottom: 6px; }
+    .edu-period { font-size: .75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+    .edu-pts { list-style: none; }
+    .edu-pts li {
+      position: relative; padding-left: 16px;
+      color: var(--text2); font-size: .875rem; margin-bottom: 4px;
+    }
+    .edu-pts li::before { content: '·'; position: absolute; left: 3px; color: var(--cyan); font-size: 1.2rem; line-height: 1; top: 1px; }
+
+    /* ─── Contact ───────────────────────────────────── */
+    .contact-box { max-width: 580px; margin: 0 auto; text-align: center; }
+
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 1rem; color: var(--cyan); text-decoration: none; font-weight: 600;
+      margin: 24px 0 36px; padding: 16px 30px;
+      border: 1px solid var(--cyan-b); border-radius: var(--r);
+      background: var(--cyan-g); transition: all .25s;
+    }
+    .contact-email svg { width: 18px; height: 18px; }
+    .contact-email:hover { background: rgba(34,211,238,.2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,211,238,.2); }
+
+    .soc-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .soc-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: var(--r-sm);
+      text-decoration: none; font-size: .85rem; font-weight: 500;
+      color: var(--text2); border: 1px solid var(--border);
+      transition: all .25s;
+    }
+    .soc-btn svg { width: 17px; height: 17px; }
+    .soc-btn:hover { color: var(--text); border-color: var(--border2); transform: translateY(-2px); }
+
+    /* ─── Footer ────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 0;
+      text-align: center; color: var(--muted); font-size: .82rem;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+
+    /* ─── Scroll animation ──────────────────────────── */
+    .fade { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── Responsive ────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .sec { padding: 70px 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .avatar-wrap { max-width: 180px; }
+      .stats { grid-template-columns: repeat(3,1fr); }
+      .proj-grid { grid-template-columns: 1fr; }
+      .edu-card { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn { justify-content: center; }
+      .stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ──────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#hero" class="nav-logo">amir.dev</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="openMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Mobile Menu ───────────────────────────────────── -->
+<div id="mob-menu">
+  <button class="mob-close" onclick="closeMenu()">✕</button>
+  <a href="#about"      onclick="closeMenu()">About</a>
+  <a href="#skills"     onclick="closeMenu()">Skills</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#projects"   onclick="closeMenu()">Projects</a>
+  <a href="#education"  onclick="closeMenu()">Education</a>
+  <a href="#contact"    onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- ── Hero ─────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="wrap hero-content">
+    <div class="hero-badge">Available for Opportunities</div>
+
+    <h1 class="hero-name">Amir Suhail<br>Salim</h1>
+
+    <p class="hero-role">
+      <span class="typed" id="typed"></span><span class="cursor"></span>
+    </p>
+
+    <p class="hero-desc">
+      Master's student at <strong>TU Munich</strong> specializing in Model Predictive Control
+      and learning-based optimal control for safety-critical systems.
+      Building autonomous systems at the intersection of control theory and machine learning.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        View Projects
+      </a>
+      <a href="mailto:amirsuhail.salim@tum.de" class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get In Touch
+      </a>
+    </div>
+
+    <div class="hero-socials">
+      <a href="https://github.com/amir013" target="_blank" rel="noopener" class="soc-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://gitlab.lrz.de/00000000014B471D" target="_blank" rel="noopener" class="soc-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
+        GitLab (LRZ)
+      </a>
+      <a href="mailto:amirsuhail.salim@tum.de" class="soc-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        amirsuhail.salim@tum.de
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    scroll
+  </div>
+</section>
+
+<!-- ── About ─────────────────────────────────────────── -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="about-grid">
+
+      <div class="avatar-wrap fade">
+        <div class="avatar-glow"></div>
+        <div class="avatar-box">
+          <img src="linkedin2.png" alt="Amir Suhail Salim">
+        </div>
+      </div>
+
+      <div class="about-text fade">
+        <div class="sec-hdr">
+          <h2 class="sec-title">About Me</h2>
+        </div>
+        <p>
+          I'm a Master's student in Power Engineering at <strong>TU Munich</strong>,
+          specializing in Control Systems &amp; Autonomous Robotics.
+          My research sits at the boundary of <strong>classical control theory</strong>
+          and <strong>machine learning</strong> — building systems where performance guarantees matter.
+        </p>
+        <p>
+          Currently, I'm implementing neural network approximations of Nonlinear MPC for
+          rocket engine thrust control, achieving a <strong>1000× inference speedup</strong>
+          with 95–99% of optimal performance. I'm also working with real robotic hardware:
+          ROS2-based UAV platforms and the Franka Emika FR3 manipulator.
+        </p>
+        <p>
+          Based in <strong>Munich, Germany</strong>. Open to research collaborations,
+          internships, and challenging engineering problems in autonomy and control.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ────────────────────────────────────────── -->
+<section id="skills" class="sec">
+  <div class="wrap">
+    <div class="sec-hdr fade">
+      <h2 class="sec-title">Skills</h2>
+      <p class="sec-sub">Technologies, frameworks, and tools I work with</p>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">💻</div>
+          <div class="skill-name">Programming</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">C++</span>
+          <span class="tag">C</span><span class="tag">MATLAB</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">🤖</div>
+          <div class="skill-name">Robotics &amp; Control</div>
+        </div>
+        <div class="tags">
+          <span class="tag">ROS2</span><span class="tag">Mujoco</span>
+          <span class="tag">Rviz</span><span class="tag">MoveIt</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">⚙️</div>
+          <div class="skill-name">Control Theory</div>
+        </div>
+        <div class="tags">
+          <span class="tag">MPC</span><span class="tag">NMPC</span>
+          <span class="tag">LQR/LQ</span><span class="tag">PID</span>
+          <span class="tag">SMC</span><span class="tag">H∞</span>
+          <span class="tag">Sys. ID</span><span class="tag">RL</span><span class="tag">IL</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">🧠</div>
+          <div class="skill-name">ML &amp; Optimization</div>
+        </div>
+        <div class="tags">
+          <span class="tag">PyTorch</span><span class="tag">XGBoost</span>
+          <span class="tag">Pyomo</span><span class="tag">Gurobi</span>
+          <span class="tag">Simulink</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">🔧</div>
+          <div class="skill-name">DevOps &amp; Testing</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Docker</span><span class="tag">Git</span>
+          <span class="tag">Pytest</span><span class="tag">OpenCV</span>
+        </div>
+      </div>
+
+      <div class="skill-card fade">
+        <div class="skill-hdr">
+          <div class="skill-icon">📡</div>
+          <div class="skill-name">Networking &amp; IoT</div>
+        </div>
+        <div class="tags">
+          <span class="tag">CAN</span><span class="tag">MQTT</span>
+          <span class="tag">CoAP</span><span class="tag">HTTP</span>
+          <span class="tag">node-wot</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ─────────────────────────────────────── -->
+<section id="experience" class="sec">
+  <div class="wrap" style="background: var(--bg2); border-radius: var(--r); padding: 48px;">
+
+    <div class="sec-hdr fade">
+      <h2 class="sec-title">Experience</h2>
+      <p class="sec-sub">Research and professional roles</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div>
+              <div class="tl-title">Research Intern — Imitation Learning of NMPC for Thrust Control in Rocket Engines</div>
+              <div class="tl-org">Safety-Critical Propulsion Systems Research</div>
+            </div>
+            <span class="tl-date">Jan 2026 — Present</span>
+          </div>
+          <ul>
+            <li>Implemented Behavioral Cloning to approximate Nonlinear MPC, achieving 95–99% of optimal performance with &lt;1ms inference time — a 1000× speedup over the original controller</li>
+            <li>Designed and validated 50+ control scenarios covering the full operating envelope for safety-critical propulsion systems</li>
+          </ul>
+          <div class="tl-techs">
+            <span class="tl-tech">Python</span>
+            <span class="tl-tech">PyTorch</span>
+            <span class="tl-tech">MATLAB</span>
+            <span class="tl-tech">NMPC</span>
+            <span class="tl-tech">Neural Networks</span>
+            <span class="tl-tech v">Behavioral Cloning</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ───────────────────────────────────────── -->
+<section id="projects" class="sec">
+  <div class="wrap">
+    <div class="sec-hdr fade">
+      <h2 class="sec-title">Projects</h2>
+      <p class="sec-sub">Research labs, independent work, and open-source contributions</p>
+    </div>
+    <div class="proj-grid">
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">🚁</div>
+          <a href="https://github.com/amir013/lsy_drone_racing" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Autonomous Drone Racing</div>
+        <div class="proj-period">April 2025 — July 2025 · TUM Project Lab</div>
+        <div class="proj-desc">
+          Designed and implemented MPC algorithms for autonomous UAV navigation in dynamic racing scenarios.
+          Developed real-time trajectory optimization with flight dynamics constraints and obstacle avoidance
+          for high-speed maneuvers. Deployed control system using ROS2 for real-time flight control.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">ROS2</span><span class="proj-tag">Python</span>
+          <span class="proj-tag">MPC</span><span class="proj-tag">Trajectory Opt.</span>
+          <span class="proj-tag">UAV Control</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">🦾</div>
+          <a href="https://gitlab.lrz.de/00000000014B471D" target="_blank" rel="noopener" class="proj-gh" title="GitLab (LRZ — requires TUM login)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Franka FR3 Task Board Solution</div>
+        <div class="proj-period">Oct 2025 — Feb 2026 · TUM IMPL WS25 — Intelligence Machine Programming Lab</div>
+        <div class="proj-desc">
+          Autonomous task board solution for Franka FR3 7-DOF robot arm. Detects colored buttons via
+          computer vision (template matching + HSV + RealSense depth), then executes button-pressing
+          sequences in response to illumination events. Features an FSM controller with three test modes:
+          FIND (workspace scanning), SPEED (sequential presses), and LIGHT (reactive illumination response).
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">ROS2 Humble</span><span class="proj-tag">MoveIt2</span>
+          <span class="proj-tag">Franka FR3</span><span class="proj-tag">OpenCV</span>
+          <span class="proj-tag">Intel RealSense</span><span class="proj-tag">Docker</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">FSM</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">📡</div>
+          <div></div>
+        </div>
+        <div class="proj-title">RF Mesh Network Coverage Planner</div>
+        <div class="proj-period">Feb 2026 · European Defense Tech Hackathon — Team Atlas</div>
+        <div class="proj-desc">
+          Built ATLAS CONOPS: a ground station placement optimizer for drone interception zones.
+          Implemented full RF link budget engine (EIRP, FSPL, SNR, Shannon capacity) with SRTM terrain modeling.
+          Applied Particle Swarm Optimization and 3D coverage heatmap visualization with GIS export.
+          Delivered in 48 hours as part of a 5-person team.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">PSO</span><span class="proj-tag">RF Engineering</span>
+          <span class="proj-tag">GIS</span><span class="proj-tag">3D Viz</span>
+          <span class="proj-tag">Python</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">🎛️</div>
+          <div></div>
+        </div>
+        <div class="proj-title">Advanced Control Systems Lab</div>
+        <div class="proj-period">April 2025 — July 2025 · Advanced Control &amp; Robotics Lab, TUM</div>
+        <div class="proj-desc">
+          Implemented advanced control systems across multiple physical platforms: gyro-stabilized platform,
+          active mass damping, inverted pendulum, three-tank system, and induction motor.
+          Developed Stochastic MPC with chance constraints, H∞ mixed-sensitivity controllers,
+          and Luenberger state observers.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">SMPC</span><span class="proj-tag">H∞ Control</span>
+          <span class="proj-tag">LQR</span><span class="proj-tag">State Estimation</span>
+          <span class="proj-tag">MATLAB</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">💨</div>
+          <a href="https://github.com/amir013/Wind-Power-Prediction" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Wind Power Prediction</div>
+        <div class="proj-period">Open Source · GitHub</div>
+        <div class="proj-desc">
+          XGBoost-based wind power forecasting using multi-height meteorological data.
+          Applied gradient boosting for accurate power output prediction from atmospheric measurements.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">XGBoost</span><span class="proj-tag">Python</span>
+          <span class="proj-tag">Forecasting</span><span class="proj-tag">Jupyter</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">⚡</div>
+          <a href="https://github.com/amir013/Unit-Commitment" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Unit Commitment Optimization</div>
+        <div class="proj-period">Open Source · GitHub</div>
+        <div class="proj-desc">
+          MILP unit commitment optimization with renewable energy integration (wind and solar).
+          Formulated and solved generation scheduling problems considering renewable constraints and grid requirements.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">MILP</span><span class="proj-tag">Gurobi</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">Optimization</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">🔌</div>
+          <a href="https://github.com/amir013/OPF" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Optimal Power Flow</div>
+        <div class="proj-period">Open Source · GitHub</div>
+        <div class="proj-desc">
+          AC/DC Optimal Power Flow optimization using Pyomo and NEOS solvers.
+          Implemented and solved nonlinear power system dispatch problems with complex grid constraints.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Pyomo</span><span class="proj-tag">NEOS</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">AC/DC OPF</span>
+        </div>
+      </div>
+
+      <div class="proj-card fade">
+        <div class="proj-top">
+          <div class="proj-emoji">🏗️</div>
+          <a href="https://github.com/amir013/Distribution-Grid-Simulation" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <div class="proj-title">Distribution Grid Simulation</div>
+        <div class="proj-period">Open Source · GitHub</div>
+        <div class="proj-desc">
+          Genetic algorithm optimization for DER allocation in distribution grids using pandapower.
+          Optimized placement and sizing of distributed energy resources for grid stability and efficiency.
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Genetic Algorithm</span><span class="proj-tag">pandapower</span>
+          <span class="proj-tag">Python</span><span class="proj-tag">DER</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Education ──────────────────────────────────────── -->
+<section id="education" class="sec">
+  <div class="wrap" style="background: var(--bg2); border-radius: var(--r); padding: 48px;">
+    <div class="sec-hdr fade">
+      <h2 class="sec-title">Education</h2>
+      <p class="sec-sub">Academic background</p>
+    </div>
+    <div class="edu-list">
+
+      <div class="edu-card fade">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-deg">Master of Science — Power Engineering</div>
+          <div class="edu-school">Technical University of Munich (TUM), Garching</div>
+          <div class="edu-period">Oct 2023 — Present</div>
+          <ul class="edu-pts">
+            <li>Specialization in Control Systems &amp; Autonomous Robotics</li>
+            <li>Model Predictive Control, System Modelling, Reinforcement Learning</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="edu-card fade">
+        <div class="edu-icon">🏛️</div>
+        <div>
+          <div class="edu-deg">Bachelor of Engineering — Mechanical Engineering</div>
+          <div class="edu-school">Vellore Institute of Technology, Vellore, India</div>
+          <div class="edu-period">June 2017 — Dec 2021</div>
+          <ul class="edu-pts">
+            <li>Thesis: Design Optimization and Numerical Analysis of BTMS for EVs</li>
+            <li>Member of Baja SAE Student Club (KI Racing)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────── -->
+<section id="contact" class="sec">
+  <div class="wrap">
+    <div class="contact-box">
+      <div class="sec-hdr center fade">
+        <h2 class="sec-title">Get In Touch</h2>
+        <p class="sec-sub">
+          Open to research collaborations, internships, and interesting engineering challenges.
+        </p>
+      </div>
+      <div class="fade">
+        <a href="mailto:amirsuhail.salim@tum.de" class="contact-email">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          amirsuhail.salim@tum.de
+        </a>
+        <div class="soc-btns">
+          <a href="https://github.com/amir013" target="_blank" rel="noopener" class="soc-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://gitlab.lrz.de/00000000014B471D" target="_blank" rel="noopener" class="soc-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
+            GitLab (LRZ)
+          </a>
+          <a href="https://www.linkedin.com/in/amir-suhail-salim-668244170/" target="_blank" rel="noopener" class="soc-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <p>Built by <a href="https://github.com/amir013">Amir Suhail Salim</a> · Munich, Germany · 2026</p>
+  </div>
+</footer>
+
+<script>
+  // ── Nav scroll shadow
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ── Mobile menu
+  function openMenu()  { document.getElementById('mob-menu').classList.add('open'); }
+  function closeMenu() { document.getElementById('mob-menu').classList.remove('open'); }
+
+  // ── Typing effect
+  const roles = [
+    'Control Systems Engineer',
+    'Autonomous Robotics Researcher',
+    'MPC & Optimal Control',
+    'UAV Control Specialist',
+  ];
+  let ri = 0, ci = 0, del = false;
+  const el = document.getElementById('typed');
+
+  function type() {
+    const word = roles[ri];
+    if (!del) {
+      el.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { del = true; setTimeout(type, 2200); return; }
+    } else {
+      el.textContent = word.slice(0, --ci);
+      if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(type, del ? 45 : 75);
+  }
+  type();
+
+  // ── Scroll-in animation
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
