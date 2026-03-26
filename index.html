@@ -373,7 +373,10 @@
       font-size: .7rem; font-family: 'JetBrains Mono', monospace;
       color: var(--muted); background: var(--bg2);
       border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px;
+      text-decoration: none;
     }
+    a.proj-tag:hover { color: var(--cyan); border-color: var(--cyan-b); }
+    a.tl-tech:hover { opacity: .75; }
 
     /* ─── Education ─────────────────────────────────── */
     #education { background: var(--bg2); }
@@ -500,9 +503,7 @@
     </p>
 
     <p class="hero-desc">
-      Master's student at <strong>TU Munich</strong> specializing in Model Predictive Control
-      and learning-based optimal control for safety-critical systems.
-      Building autonomous systems at the intersection of control theory and machine learning.
+      Master's student at <strong>TU Munich</strong> — making safety-critical autonomous systems fast enough to deploy.
     </p>
 
     <div class="hero-cta">
@@ -554,16 +555,14 @@
           <h2 class="sec-title">About Me</h2>
         </div>
         <p>
-          I'm a Master's student in Power Engineering at <strong>TU Munich</strong>,
-          specializing in Control Systems &amp; Autonomous Robotics.
-          My research sits at the boundary of <strong>classical control theory</strong>
-          and <strong>machine learning</strong> — building systems where performance guarantees matter.
+          My research focuses on replacing computationally expensive optimal controllers with
+          learned approximations that retain performance guarantees —
+          currently achieving a <strong>1000× inference speedup</strong> on NMPC for rocket engine thrust control
+          with 95–99% of optimal performance.
         </p>
         <p>
-          Currently, I'm implementing neural network approximations of Nonlinear MPC for
-          rocket engine thrust control, achieving a <strong>1000× inference speedup</strong>
-          with 95–99% of optimal performance. I'm also working with real robotic hardware:
-          ROS2-based UAV platforms and the Franka Emika FR3 manipulator.
+          On the hardware side I work with ROS2-based UAV platforms and the <strong>Franka Emika FR3</strong> manipulator,
+          bridging theory and real-robot deployment.
         </p>
         <p>
           Based in <strong>Munich, Germany</strong>. Open to research collaborations,
@@ -677,17 +676,22 @@
               <div class="tl-title">Research Intern — Imitation Learning of NMPC for Thrust Control in Rocket Engines</div>
               <div class="tl-org">Safety-Critical Propulsion Systems Research</div>
             </div>
-            <span class="tl-date">Jan 2026 — Present</span>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="tl-date">Jan 2026 — Present</span>
+              <a href="https://gitlab.lrz.de/controlllarrys/rocketil/-/tree/6b5c93258f1e77672e4bed85fe1ea25949ecc145/" target="_blank" rel="noopener" class="proj-gh" title="GitLab (LRZ — requires TUM login)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/></svg>
+              </a>
+            </div>
           </div>
           <ul>
             <li>Implemented Behavioral Cloning to approximate Nonlinear MPC, achieving 95–99% of optimal performance with &lt;1ms inference time — a 1000× speedup over the original controller</li>
             <li>Designed and validated 50+ control scenarios covering the full operating envelope for safety-critical propulsion systems</li>
           </ul>
           <div class="tl-techs">
-            <span class="tl-tech">Python</span>
-            <span class="tl-tech">PyTorch</span>
-            <span class="tl-tech">MATLAB</span>
-            <span class="tl-tech">NMPC</span>
+            <a href="#skills" class="tl-tech">Python</a>
+            <a href="#skills" class="tl-tech">PyTorch</a>
+            <a href="#skills" class="tl-tech">MATLAB</a>
+            <a href="#skills" class="tl-tech">NMPC</a>
             <span class="tl-tech">Neural Networks</span>
             <span class="tl-tech v">Behavioral Cloning</span>
           </div>
@@ -717,13 +721,12 @@
         <div class="proj-title">Autonomous Drone Racing</div>
         <div class="proj-period">April 2025 — July 2025 · TUM Project Lab</div>
         <div class="proj-desc">
-          Designed and implemented MPC algorithms for autonomous UAV navigation in dynamic racing scenarios.
-          Developed real-time trajectory optimization with flight dynamics constraints and obstacle avoidance
-          for high-speed maneuvers. Deployed control system using ROS2 for real-time flight control.
+          MPC-based autonomous UAV navigation in dynamic racing environments.
+          Real-time trajectory optimization with obstacle avoidance, deployed on hardware via ROS2.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">ROS2</span><span class="proj-tag">Python</span>
-          <span class="proj-tag">MPC</span><span class="proj-tag">Trajectory Opt.</span>
+          <a href="#skills" class="proj-tag">ROS2</a><a href="#skills" class="proj-tag">Python</a>
+          <a href="#skills" class="proj-tag">MPC</a><span class="proj-tag">Trajectory Opt.</span>
           <span class="proj-tag">UAV Control</span>
         </div>
       </div>
@@ -738,16 +741,14 @@
         <div class="proj-title">Franka FR3 Task Board Solution</div>
         <div class="proj-period">Oct 2025 — Feb 2026 · TUM IMPL WS25 — Intelligence Machine Programming Lab</div>
         <div class="proj-desc">
-          Autonomous task board solution for Franka FR3 7-DOF robot arm. Detects colored buttons via
-          computer vision (template matching + HSV + RealSense depth), then executes button-pressing
-          sequences in response to illumination events. Features an FSM controller with three test modes:
-          FIND (workspace scanning), SPEED (sequential presses), and LIGHT (reactive illumination response).
+          Computer vision pipeline (HSV + template matching + RealSense depth) drives Franka FR3 to autonomously press illuminated buttons.
+          FSM controller with FIND, SPEED, and LIGHT modes; full MoveIt2 motion planning.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">ROS2 Humble</span><span class="proj-tag">MoveIt2</span>
-          <span class="proj-tag">Franka FR3</span><span class="proj-tag">OpenCV</span>
-          <span class="proj-tag">Intel RealSense</span><span class="proj-tag">Docker</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">FSM</span>
+          <a href="#skills" class="proj-tag">ROS2 Humble</a><a href="#skills" class="proj-tag">MoveIt2</a>
+          <span class="proj-tag">Franka FR3</span><a href="#skills" class="proj-tag">OpenCV</a>
+          <span class="proj-tag">Intel RealSense</span><a href="#skills" class="proj-tag">Docker</a>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">FSM</span>
         </div>
       </div>
 
@@ -761,15 +762,13 @@
         <div class="proj-title">FR3 Erasing — Teach &amp; Replay</div>
         <div class="proj-period">TUM IMPL WS25 — Intelligence Machine Programming Lab</div>
         <div class="proj-desc">
-          Kinesthetic teaching and autonomous trajectory replay system for the Franka FR3 arm performing
-          surface erasing. The robot is manually guided through the desired motion (gravity compensation mode),
-          recording joint trajectories to CSV. Replay autonomously follows the recorded path via a
-          JointTrajectoryController with tuned PID gains for compliant contact.
+          Manual guidance in gravity-compensation mode records joint trajectories; autonomous replay via a tuned JointTrajectoryController.
+          Demonstrates compliant contact and teach-and-replay on real hardware.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">ROS2 Humble</span><span class="proj-tag">Franka FR3</span>
+          <a href="#skills" class="proj-tag">ROS2 Humble</a><span class="proj-tag">Franka FR3</span>
           <span class="proj-tag">Teach &amp; Replay</span><span class="proj-tag">JointTrajectoryController</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">PID Tuning</span>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">PID Tuning</span>
         </div>
       </div>
 
@@ -783,14 +782,12 @@
         <div class="proj-title">Drawbot</div>
         <div class="proj-period">TUM IMPL WS25 — Intelligence Machine Programming Lab</div>
         <div class="proj-desc">
-          UR10e robot arm that draws images on a whiteboard using a marker as the end-effector tool.
-          Involved TCP calibration via 4-point teach-in, whiteboard plane definition using the Origin-X-Y method,
-          and RoboDK simulation for trajectory generation and program verification before real execution.
-          Generated <code>.urp</code> and <code>.script</code> files deployed via USB to the Teach Panel.
+          UR10e draws images on a whiteboard: TCP calibration, RoboDK trajectory simulation, then deployment via <code>.urp</code>/<code>.script</code> files.
+          Full pipeline from image vectorization to real robot execution.
         </div>
         <div class="proj-tags">
           <span class="proj-tag">UR10e</span><span class="proj-tag">RoboDK</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">TCP Calibration</span>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">TCP Calibration</span>
           <span class="proj-tag">Trajectory Planning</span>
         </div>
       </div>
@@ -805,12 +802,8 @@
         <div class="proj-title">ATLAS CONOPS — RF Mesh Network Coverage Planner</div>
         <div class="proj-period">Feb 2026 · <strong style="color:var(--cyan)">European Defence Tech Hackathon 2026</strong> — Team Atlas, Munich</div>
         <div class="proj-desc">
-          Built at the <strong>European Defence Tech Hackathon 2026</strong> in Munich. Streamlit-based
-          tool for optimizing ground RF mesh network station placement for drone detection/interception
-          zones around Munich Airport. Implements a full RF link budget engine (EIRP, FSPL, SNR,
-          Shannon capacity), 5 real antenna profiles from datasheets, SRTM terrain modeling with LOS
-          obstruction, PSO optimizer for station placement and antenna selection, and GIS export
-          (GeoJSON, KML, Shapefile). Delivered in 48 hours as part of a 5-person team.
+          48-hour build at EDTH 2026: Streamlit tool optimizing RF mesh network coverage for drone detection around Munich Airport.
+          PSO station placement, full RF link budget engine, SRTM terrain LOS modeling, and GIS export — delivered by a 5-person team.
         </div>
         <div class="proj-tags">
           <span class="proj-tag">Streamlit</span><span class="proj-tag">PSO</span>
@@ -828,15 +821,12 @@
         <div class="proj-title">Advanced Control Systems Lab</div>
         <div class="proj-period">April 2025 — July 2025 · Advanced Control &amp; Robotics Lab, TUM</div>
         <div class="proj-desc">
-          Implemented advanced control systems across multiple physical platforms: gyro-stabilized platform,
-          active mass damping, inverted pendulum, three-tank system, and induction motor.
-          Developed Stochastic MPC with chance constraints, H∞ mixed-sensitivity controllers,
-          and Luenberger state observers.
+          8 hardware experiments covering the breadth of modern control: Stochastic MPC, H∞ mixed-sensitivity, LQR, PID, SMC, and Luenberger observers — each validated on a different physical platform.
         </div>
         <div class="proj-tags">
           <span class="proj-tag">SMPC</span><span class="proj-tag">H∞ Control</span>
-          <span class="proj-tag">LQR</span><span class="proj-tag">State Estimation</span>
-          <span class="proj-tag">MATLAB</span>
+          <a href="#skills" class="proj-tag">LQR</a><span class="proj-tag">SMC</span>
+          <span class="proj-tag">State Estimation</span><a href="#skills" class="proj-tag">MATLAB</a>
         </div>
       </div>
 
@@ -850,11 +840,10 @@
         <div class="proj-title">Wind Power Prediction</div>
         <div class="proj-period">Open Source · GitHub</div>
         <div class="proj-desc">
-          XGBoost-based wind power forecasting using multi-height meteorological data.
-          Applied gradient boosting for accurate power output prediction from atmospheric measurements.
+          XGBoost forecasting of wind power output from multi-height meteorological data.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">XGBoost</span><span class="proj-tag">Python</span>
+          <a href="#skills" class="proj-tag">XGBoost</a><a href="#skills" class="proj-tag">Python</a>
           <span class="proj-tag">Forecasting</span><span class="proj-tag">Jupyter</span>
         </div>
       </div>
@@ -869,12 +858,11 @@
         <div class="proj-title">Unit Commitment Optimization</div>
         <div class="proj-period">Open Source · GitHub</div>
         <div class="proj-desc">
-          MILP unit commitment optimization with renewable energy integration (wind and solar).
-          Formulated and solved generation scheduling problems considering renewable constraints and grid requirements.
+          MILP generation scheduling with wind and solar integration, solved via Gurobi.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">MILP</span><span class="proj-tag">Gurobi</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">Optimization</span>
+          <span class="proj-tag">MILP</span><a href="#skills" class="proj-tag">Gurobi</a>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">Optimization</span>
         </div>
       </div>
 
@@ -888,12 +876,11 @@
         <div class="proj-title">Optimal Power Flow</div>
         <div class="proj-period">Open Source · GitHub</div>
         <div class="proj-desc">
-          AC/DC Optimal Power Flow optimization using Pyomo and NEOS solvers.
-          Implemented and solved nonlinear power system dispatch problems with complex grid constraints.
+          AC/DC OPF solved with Pyomo and NEOS — nonlinear dispatch with full grid constraints.
         </div>
         <div class="proj-tags">
-          <span class="proj-tag">Pyomo</span><span class="proj-tag">NEOS</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">AC/DC OPF</span>
+          <a href="#skills" class="proj-tag">Pyomo</a><span class="proj-tag">NEOS</span>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">AC/DC OPF</span>
         </div>
       </div>
 
@@ -907,12 +894,11 @@
         <div class="proj-title">Distribution Grid Simulation</div>
         <div class="proj-period">Open Source · GitHub</div>
         <div class="proj-desc">
-          Genetic algorithm optimization for DER allocation in distribution grids using pandapower.
-          Optimized placement and sizing of distributed energy resources for grid stability and efficiency.
+          Genetic algorithm for DER placement and sizing in distribution grids using pandapower.
         </div>
         <div class="proj-tags">
           <span class="proj-tag">Genetic Algorithm</span><span class="proj-tag">pandapower</span>
-          <span class="proj-tag">Python</span><span class="proj-tag">DER</span>
+          <a href="#skills" class="proj-tag">Python</a><span class="proj-tag">DER</span>
         </div>
       </div>
 
