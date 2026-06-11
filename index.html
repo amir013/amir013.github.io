@@ -253,7 +253,12 @@
       overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
-    .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-box img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 38%;
+      transform: scale(1.16);
+    }
     .avatar-box .placeholder-icon { width: 55%; height: 55%; color: var(--border2); }
 
     .about-text p { color: var(--text2); margin-bottom: 16px; font-size: .97rem; line-height: 1.85; }
