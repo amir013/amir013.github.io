@@ -12,20 +12,20 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:          #060912;
-      --bg2:         #0b1120;
-      --card:        #0e1526;
-      --card-h:      #131d33;
-      --cyan:        #22d3ee;
-      --cyan-g:      rgba(34,211,238,.12);
-      --cyan-b:      rgba(34,211,238,.25);
-      --purple:      #a78bfa;
-      --purple-g:    rgba(167,139,250,.12);
-      --text:        #e2e8f0;
-      --text2:       #94a3b8;
+      --bg:          #f8fbff;
+      --bg2:         #eef6ff;
+      --card:        #ffffff;
+      --card-h:      #f1f7ff;
+      --cyan:        #0f6fff;
+      --cyan-g:      rgba(15,111,255,.09);
+      --cyan-b:      rgba(15,111,255,.24);
+      --purple:      #2dd4bf;
+      --purple-g:    rgba(45,212,191,.11);
+      --text:        #0f172a;
+      --text2:       #475569;
       --muted:       #64748b;
-      --border:      #1a2740;
-      --border2:     #243450;
+      --border:      #dbe8f7;
+      --border2:     #b7cce6;
       --r:           12px;
       --r-sm:        8px;
     }
@@ -34,7 +34,9 @@
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 1px 1px, rgba(15,111,255,.16) 1px, transparent 0) 0 0 / 24px 24px,
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 42%, #eef6ff 100%);
       color: var(--text);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
@@ -42,7 +44,7 @@
     }
 
     ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-track { background: #eaf3ff; }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
     /* ─── Utilities ─────────────────────────────────── */
@@ -83,10 +85,11 @@
       transition: background .3s, border-color .3s, backdrop-filter .3s;
     }
     #nav.scrolled {
-      background: rgba(6,9,18,.88);
+      background: rgba(255,255,255,.88);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; }
 
@@ -111,7 +114,10 @@
     /* ─── Mobile Menu ───────────────────────────────── */
     #mob-menu {
       display: none; position: fixed; inset: 0;
-      background: var(--bg); z-index: 99;
+      background:
+        radial-gradient(circle at 1px 1px, rgba(15,111,255,.16) 1px, transparent 0) 0 0 / 24px 24px,
+        var(--bg);
+      z-index: 99;
       flex-direction: column; align-items: center; justify-content: center; gap: 36px;
     }
     #mob-menu.open { display: flex; }
@@ -128,17 +134,16 @@
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 80% 55% at 50% -10%, rgba(34,211,238,.07) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 70% at 85% 50%, rgba(167,139,250,.05) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 55% at 50% -10%, rgba(15,111,255,.15) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 70% at 85% 50%, rgba(45,212,191,.12) 0%, transparent 60%);
     }
 
     .hero-grid {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 56px 56px;
-      opacity: .35;
+        radial-gradient(circle at center, rgba(15,111,255,.22) 1.2px, transparent 1.3px);
+      background-size: 28px 28px;
+      opacity: .75;
       mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 80%);
       -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 80%);
     }
@@ -199,8 +204,8 @@
     }
     .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-    .btn-primary { background: var(--cyan); color: var(--bg); }
-    .btn-primary:hover { background: #38bdf8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,211,238,.3); }
+    .btn-primary { background: var(--cyan); color: #fff; }
+    .btn-primary:hover { background: #075bd8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,111,255,.28); }
 
     .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border2); }
     .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
@@ -225,7 +230,7 @@
     @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
 
     /* ─── About ─────────────────────────────────────── */
-    #about { background: var(--bg2); }
+    #about { background: rgba(238,246,255,.72); }
 
     .about-grid {
       display: grid; grid-template-columns: 320px 1fr;
@@ -237,6 +242,7 @@
       position: absolute; inset: -3px; border-radius: calc(var(--r) + 4px);
       background: linear-gradient(135deg, var(--cyan), var(--purple));
       z-index: 0;
+      box-shadow: 0 18px 48px rgba(15,111,255,.18);
     }
     .avatar-box {
       position: relative; z-index: 1;
@@ -257,7 +263,8 @@
     .stat {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--r-sm); padding: 18px 12px; text-align: center;
-      transition: border-color .2s;
+      transition: border-color .2s, box-shadow .2s;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .04);
     }
     .stat:hover { border-color: var(--cyan); }
     .stat-val { font-size: 1.6rem; font-weight: 800; color: var(--cyan); font-family: 'JetBrains Mono', monospace; }
@@ -270,6 +277,7 @@
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--r); padding: 26px;
       transition: border-color .25s, transform .25s;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
     }
     .skill-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
 
@@ -291,7 +299,7 @@
     }
 
     /* ─── Experience ────────────────────────────────── */
-    #experience { background: var(--bg2); }
+    #experience { background: rgba(238,246,255,.72); }
 
     .timeline { position: relative; padding-left: 28px; }
     .timeline::before {
@@ -305,14 +313,15 @@
     .tl-dot {
       position: absolute; left: -35px; top: 10px;
       width: 13px; height: 13px; border-radius: 50%;
-      background: var(--cyan); border: 2px solid var(--bg2);
-      box-shadow: 0 0 10px rgba(34,211,238,.5);
+      background: var(--cyan); border: 2px solid #fff;
+      box-shadow: 0 0 10px rgba(15,111,255,.35);
     }
 
     .tl-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--r); padding: 26px;
       transition: border-color .2s;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
     }
     .tl-card:hover { border-color: var(--border2); }
 
@@ -346,7 +355,7 @@
       color: var(--cyan); background: var(--cyan-g);
       border: 1px solid var(--cyan-b); padding: 3px 10px; border-radius: 100px;
     }
-    .tl-tech.v { color: var(--purple); background: var(--purple-g); border-color: rgba(167,139,250,.25); }
+    .tl-tech.v { color: #0f766e; background: var(--purple-g); border-color: rgba(45,212,191,.28); }
 
     /* ─── Projects ──────────────────────────────────── */
     .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 22px; }
@@ -356,8 +365,9 @@
       border-radius: var(--r); padding: 26px;
       display: flex; flex-direction: column;
       transition: all .25s;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
     }
-    .proj-card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+    .proj-card:hover { border-color: var(--cyan); transform: translateY(-6px); box-shadow: 0 20px 42px rgba(15,111,255,.14); }
 
     .proj-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
     .proj-emoji { font-size: 1.6rem; }
@@ -379,7 +389,7 @@
     a.tl-tech:hover { opacity: .75; }
 
     /* ─── Education ─────────────────────────────────── */
-    #education { background: var(--bg2); }
+    #education { background: rgba(238,246,255,.72); }
 
     .edu-list { display: grid; gap: 20px; }
     .edu-card {
@@ -387,6 +397,7 @@
       border-radius: var(--r); padding: 28px;
       display: grid; grid-template-columns: 48px 1fr; gap: 22px; align-items: start;
       transition: border-color .2s;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
     }
     .edu-card:hover { border-color: var(--cyan); }
     .edu-icon {
@@ -416,7 +427,7 @@
       background: var(--cyan-g); transition: all .25s;
     }
     .contact-email svg { width: 18px; height: 18px; }
-    .contact-email:hover { background: rgba(34,211,238,.2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,211,238,.2); }
+    .contact-email:hover { background: rgba(15,111,255,.14); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,111,255,.18); }
 
     .soc-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .soc-btn {
@@ -677,7 +688,7 @@
               <div class="tl-org">Safety-Critical Propulsion Systems Research</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px">
-              <span class="tl-date">Jan 2026 — Present</span>
+              <span class="tl-date">Jan 2026 — Apr 2026</span>
               <a href="https://github.com/amir013/BC_NMPC" target="_blank" rel="noopener" class="proj-gh" title="GitHub">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
               </a>
