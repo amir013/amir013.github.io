@@ -572,9 +572,9 @@
         </div>
         <p>
           My research focuses on replacing computationally expensive optimal controllers with
-          learned approximations that retain performance guarantees —
-          currently achieving a <strong>1000× inference speedup</strong> on NMPC for rocket engine thrust control
-          with 95–99% of optimal performance.
+          compact learned policies that preserve closed-loop control quality within a defined operating envelope.
+          For monopropellant rocket engine pressure control, I trained a 56-parameter neural policy that matched
+          reactive NMPC tracking while reducing mean computation time from 60.6 ms to <strong>0.32 ms</strong>.
         </p>
         <p>
           On the hardware side I work with ROS2-based UAV platforms and the <strong>Franka Emika FR3</strong> manipulator,
@@ -642,6 +642,7 @@
         <div class="tags">
           <span class="tag">PyTorch</span><span class="tag">XGBoost</span>
           <span class="tag">Pyomo</span><span class="tag">Gurobi</span>
+          <span class="tag">CasADi</span><span class="tag">IPOPT</span>
           <span class="tag">Simulink</span>
         </div>
       </div>
@@ -689,8 +690,8 @@
         <div class="tl-card">
           <div class="tl-top">
             <div>
-              <div class="tl-title">Research Intern — Imitation Learning of NMPC for Thrust Control in Rocket Engines</div>
-              <div class="tl-org">Safety-Critical Propulsion Systems Research</div>
+              <div class="tl-title">Research Intern — Imitation Learning for Optimal Thrust Control of Rocket Engines</div>
+              <div class="tl-org">Chair of Automatic Control Engineering (LSR), Technical University of Munich</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px">
               <span class="tl-date">Jan 2026 — Apr 2026</span>
@@ -700,13 +701,15 @@
             </div>
           </div>
           <ul>
-            <li>Implemented Behavioral Cloning to approximate Nonlinear MPC, achieving 95–99% of optimal performance with &lt;1ms inference time — a 1000× speedup over the original controller</li>
-            <li>Designed and validated 50+ control scenarios covering the full operating envelope for safety-critical propulsion systems</li>
+            <li>Built a reactive NMPC expert in CasADi/IPOPT and generated 10,000 demonstrations from 125 closed-loop episodes spanning the 9–15.5 bar engine operating range</li>
+            <li>Trained a compact 56-parameter behaviour-cloning policy with weighted MSE, achieving a held-out valve-command RMSE of 0.002 and NMPC-comparable pressure tracking on unseen trajectories</li>
+            <li>Reduced mean controller computation time from 60.6 ms to 0.32 ms (approximately 190×), and analysed robustness to out-of-distribution initial conditions and pressure references</li>
           </ul>
           <div class="tl-techs">
             <a href="#skills" class="tl-tech">Python</a>
             <a href="#skills" class="tl-tech">PyTorch</a>
-            <a href="#skills" class="tl-tech">MATLAB</a>
+            <a href="#skills" class="tl-tech">CasADi</a>
+            <a href="#skills" class="tl-tech">IPOPT</a>
             <a href="#skills" class="tl-tech">NMPC</a>
             <span class="tl-tech">Neural Networks</span>
             <span class="tl-tech v">Behavioral Cloning</span>
