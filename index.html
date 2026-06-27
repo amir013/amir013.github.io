@@ -50,6 +50,7 @@
     /* ─── Utilities ─────────────────────────────────── */
     .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
     .sec  { padding: 96px 0; }
+    .sec:not(:last-of-type) { margin-bottom: 32px; }
 
     .sec-hdr { margin-bottom: 56px; }
     .sec-hdr.center { text-align: center; }
@@ -421,6 +422,16 @@
     }
     .edu-pts li::before { content: '·'; position: absolute; left: 3px; color: var(--cyan); font-size: 1.2rem; line-height: 1; top: 1px; }
 
+    /* ─── CV ────────────────────────────────────────── */
+    #cv { background: rgba(238,246,255,.72); }
+    .cv-box {
+      max-width: 720px; margin: 0 auto; text-align: center;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 42px 34px;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
+    }
+    .cv-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
+
     /* ─── Contact ───────────────────────────────────── */
     .contact-box { max-width: 580px; margin: 0 auto; text-align: center; }
 
@@ -461,6 +472,7 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .sec { padding: 70px 0; }
+      .sec:not(:last-of-type) { margin-bottom: 24px; }
       .about-grid { grid-template-columns: 1fr; }
       .avatar-wrap { max-width: 180px; }
       .stats { grid-template-columns: repeat(3,1fr); }
@@ -471,6 +483,68 @@
       .hero-cta { flex-direction: column; }
       .hero-cta .btn { justify-content: center; }
       .stats { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      @page { margin: 14mm; }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      #nav,
+      #mob-menu,
+      .scroll-hint,
+      footer {
+        display: none;
+      }
+
+      .fade {
+        opacity: 1;
+        transform: none;
+      }
+
+      #hero {
+        min-height: auto;
+        padding: 0 0 28px;
+      }
+
+      .hero-bg,
+      .hero-grid {
+        display: none;
+      }
+
+      .sec {
+        padding: 28px 0;
+        margin-bottom: 0;
+      }
+
+      .sec:not(:last-of-type) {
+        margin-bottom: 0;
+      }
+
+      #about,
+      #experience,
+      #education,
+      #cv {
+        background: #fff;
+      }
+
+      .tl-card,
+      .proj-card,
+      .edu-card,
+      .skill-card,
+      .cv-box {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+      }
+
+      #education {
+        break-before: page;
+        page-break-before: always;
+      }
     }
   </style>
 </head>
@@ -486,6 +560,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#cv">CV</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="openMenu()">
@@ -502,6 +577,7 @@
   <a href="#experience" onclick="closeMenu()">Experience</a>
   <a href="#projects"   onclick="closeMenu()">Projects</a>
   <a href="#education"  onclick="closeMenu()">Education</a>
+  <a href="#cv"         onclick="closeMenu()">CV</a>
   <a href="#contact"    onclick="closeMenu()">Contact</a>
 </div>
 
@@ -991,6 +1067,28 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ── CV ─────────────────────────────────────────────── -->
+<section id="cv" class="sec">
+  <div class="wrap">
+    <div class="cv-box fade">
+      <div class="sec-hdr center">
+        <h2 class="sec-title">Download CV</h2>
+        <p class="sec-sub">A concise PDF version of my academic background, technical skills, and project experience.</p>
+      </div>
+      <div class="cv-actions">
+        <a href="Amir%20Suhail%20Salim%20-%20CV.pdf" download class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <a href="mailto:amirsuhail.salim@tum.de" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Request Details
+        </a>
+      </div>
     </div>
   </div>
 </section>
