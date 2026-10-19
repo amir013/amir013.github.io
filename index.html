@@ -711,6 +711,7 @@
           <span class="tag">ROS2</span><span class="tag">Mujoco</span>
           <span class="tag">Rviz</span><span class="tag">MoveIt</span>
           <span class="tag">Kinematics &amp; Dynamics</span>
+          <span class="tag">Forward Kinematics</span><span class="tag">Inverse Kinematics</span>
         </div>
       </div>
 
@@ -736,7 +737,8 @@
           <span class="tag">PyTorch</span><span class="tag">XGBoost</span>
           <span class="tag">Pyomo</span><span class="tag">Gurobi</span>
           <span class="tag">CasADi</span><span class="tag">IPOPT</span>
-          <span class="tag">Simulink</span>
+          <span class="tag">Simulink</span><span class="tag">Gymnasium</span>
+          <span class="tag">Domain Randomization</span>
         </div>
       </div>
 
@@ -791,16 +793,18 @@
             </div>
           </div>
           <ul>
-            <li>Researching learning-based UVMS end-effector trajectory tracking for a BlueROV2 Heavy with a Reach Alpha 5 manipulator</li>
-            <li>Initializing neural control from a real-system-validated TPIK + PID-C expert through behavior cloning, with limited DAgger to reduce closed-loop distribution shift</li>
-            <li>Planning simulation-only SAC fine-tuning with focused domain randomization and a deterministic safety layer for staged real-system validation</li>
+            <li>Reproduced a real-system-validated TPIK + PID-C expert in a batched simulation gym for a BlueROV2 Heavy with a Reach Alpha 5 manipulator, calibrating the simulated plant against pool runs on the real robot</li>
+            <li>Trained a two-stage neural policy that commands vehicle wrench and arm joint velocities, using behavior cloning and DAgger under domain randomization of payload, thruster lag, and sensor noise</li>
+            <li>Fine-tuning the cloned network with TD3+BC reinforcement learning in simulation, gated by closed-loop tracking and safety evaluation ahead of staged deployment on the robot</li>
           </ul>
           <div class="tl-techs">
             <a href="#skills" class="tl-tech">Python</a>
-            <span class="tl-tech">Reinforcement Learning</span>
+            <a href="#skills" class="tl-tech">PyTorch</a>
+            <a href="#skills" class="tl-tech">ROS2</a>
             <span class="tl-tech">Behavior Cloning</span>
             <span class="tl-tech">DAgger</span>
-            <span class="tl-tech">SAC</span>
+            <span class="tl-tech">TD3+BC</span>
+            <span class="tl-tech">Domain Randomization</span>
             <span class="tl-tech">Kinematics &amp; Dynamics</span>
             <span class="tl-tech v">UVMS Control</span>
           </div>
