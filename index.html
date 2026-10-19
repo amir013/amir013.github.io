@@ -793,9 +793,12 @@
             </div>
           </div>
           <ul>
-            <li>Reproduced a real-system-validated TPIK + PID-C expert in a batched simulation gym for a BlueROV2 Heavy with a Reach Alpha 5 manipulator, calibrating the simulated plant against pool runs on the real robot</li>
-            <li>Trained a two-stage neural policy that commands vehicle wrench and arm joint velocities, using behavior cloning and DAgger under domain randomization of payload, thruster lag, and sensor noise</li>
-            <li>Fine-tuning the cloned network with TD3+BC reinforcement learning in simulation, gated by closed-loop tracking and safety evaluation ahead of staged deployment on the robot</li>
+            <li>Reproducing a real-system-validated TPIK + PID-C expert for a BlueROV2 Heavy with a Reach Alpha 5 manipulator inside a batched simulation gym, matching its frames, rates, and limits so it produces trustworthy demonstrations</li>
+            <li>Calibrating the simulated plant against pool runs of the expert on the real robot, identifying buoyancy, sway mass, pitch trim, velocity-loop lag, and sensor noise so the gym behaves like the hardware</li>
+            <li>Generating demonstration datasets across trajectory families such as min-jerk, sinusoids, figure-eights, spirals, and station keeping, with domain randomization of payload, thruster lag, sensing delay, and noise</li>
+            <li>Training neural policies by behavior cloning and DAgger, comparing action spaces and MLP and recurrent architectures, and settling on a two-stage network that commands vehicle wrench and arm joint velocities</li>
+            <li>Fine-tuning the cloned network with TD3+BC in simulation, using a privileged critic and a reward balancing tracking, joint-limit posture, and thruster effort, with policies ranked on closed-loop tracking and safety rather than training loss</li>
+            <li>Building a ROS2 policy node that takes the kinematic controller's place in the robot's control graph, starting in shadow mode with safety gates evaluated outside the network for staged real-system validation</li>
           </ul>
           <div class="tl-techs">
             <a href="#skills" class="tl-tech">Python</a>
